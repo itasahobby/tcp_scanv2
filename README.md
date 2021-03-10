@@ -112,11 +112,11 @@ Project Link: [https://github.com/itasahobby/tcp_scanv2](https://github.com/itas
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/itasahobby/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/itasahobby/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/itasahobby/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/itasahobby/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/itasahobby/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/itasahobby/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/itasahobby/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/itasahobby/repo/issues
+[contributors-shield]: https://img.shields.io/github/contributors/itasahobby/tcp_scanv2.svg?style=for-the-badge
+[contributors-url]: https://github.com/itasahobby/tcp_scanv2/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/itasahobby/tcp_scanv2.svg?style=for-the-badge
+[forks-url]: https://github.com/itasahobby/tcp_scanv2/network/members
+[stars-shield]: https://img.shields.io/github/stars/itasahobby/tcp_scanv2.svg?style=for-the-badge
+[stars-url]: https://github.com/itasahobby/tcp_scanv2/stargazers
+[issues-shield]: https://img.shields.io/github/issues/itasahobby/tcp_scanv2.svg?style=for-the-badge
+[issues-url]: https://github.com/itasahobby/tcp_scanv2/issues
