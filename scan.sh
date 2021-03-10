@@ -61,7 +61,7 @@ get_nmapcomm() {
 }
 
 # DEPENDENCY: getopt command tool
-TEMP=`getopt -o vt:pdh --long verbose,target:,paranoic,debug,help,version -n "$SCRIPTNAME" -- "$@"`
+TEMP=`getopt -o vt:ph --long verbose,target:,paranoic,help,version -n "$SCRIPTNAME" -- "$@"`
 # Note the quotes around ‘$TEMP’: they are essential!
 eval set -- "$TEMP"
 
@@ -71,7 +71,6 @@ while true; do
 		-v | --verbose ) VERBOSE=true; shift ;;
 		-t | --target ) TARGET=$2; shift 2 ;;
 		-p | --paranoic ) PARANOIC=true; shift ;;
-		-d | --debug ) DEBUG=true; set -x; shift ;;
 		-h | --help ) usage; exit 1 ;;
 		--version ) version; exit 1 ;;
 		-- ) shift; break ;;
