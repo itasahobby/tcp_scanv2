@@ -5,6 +5,7 @@ SCRIPTVERSION="v0.1"
 # Variable definitions
 TARGET=""
 VERBOSE=""
+PARANOIC=""
 NMAPCOMM=""
 FURIOUS=""
 PORTS=""
@@ -18,6 +19,7 @@ main options are described below.
 	Options:
 		-v,--verbose Verbose output only showing nmap command without executing
 		-t,--target Target to scan
+		-p,--paranoic Slow scan
 		-d,--debug Debug output
 		-h,--help Display this help and exit
 		--version Displays versions and exits
@@ -51,13 +53,15 @@ get_ports() {
 get_nmapcomm() {
 
 	NMAPCOMM="nmap $TARGET -p$PORTS"
-	if ! [ $VERBOSE ]; then
-		NMAPCOMM+=" -sC -sV -Pn -T4 -n"
+	if [[ ! $VERBOSE && $PARANOIC ]]; then
+		NMAPCOMM+=" -sC -sV -Pn -T1 -n"
+	else
+		NMAPCOMM+=" -sC -sV -Pn -T5 -n"
 	fi
 }
 
 # DEPENDENCY: getopt command tool
-TEMP=`getopt -o vt:dh --long verbose,target:,debug,help,version -n "$SCRIPTNAME" -- "$@"`
+TEMP=`getopt -o vt:pdh --long verbose,target:,paranoic,debug,help,version -n "$SCRIPTNAME" -- "$@"`
 # Note the quotes around ‘$TEMP’: they are essential!
 eval set -- "$TEMP"
 
@@ -66,6 +70,7 @@ while true; do
 	case "$1" in
 		-v | --verbose ) VERBOSE=true; shift ;;
 		-t | --target ) TARGET=$2; shift 2 ;;
+		-p | --paranoic ) PARANOIC=true; shift ;;
 		-d | --debug ) DEBUG=true; set -x; shift ;;
 		-h | --help ) usage; exit 1 ;;
 		--version ) version; exit 1 ;;
