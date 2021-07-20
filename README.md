@@ -56,17 +56,14 @@ The tool provides a simple TCP scanner to avoid retyping all the parameters on c
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To install it run the following commands:
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/itasahobby/tcp_scanv2.git
-   ```
-2. Execute installation script
-   ```sh
-   cd tcp_scanv2
-   ./install.sh
-   ```
+```sh
+sudo apt install libpcap0.8-dev libcap-dev golang
+go get -u github.com/liamg/furious
+sudo wget https://raw.githubusercontent.com/itasahobby/tcp_scanv2/master/scan.sh -O /usr/bin/scan
+sudo chmod +x /usr/bin/scan
+```
 
 
 <!-- USAGE EXAMPLES -->
