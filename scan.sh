@@ -4,7 +4,6 @@ SCRIPTVERSION="v0.1"
 
 # Variable definitions
 TARGET=""
-VERBOSE=""
 PARANOIC=""
 NMAPCOMM=""
 FURIOUS=""
@@ -18,9 +17,8 @@ main options are described below.
 
 	Options:
 		-v,--verbose Verbose output only showing nmap command without executing
-		-t,--target Target to scan
+		-t,--target Target to scan (mandatory)
 		-p,--paranoic Slow scan
-		-d,--debug Debug output
 		-h,--help Display this help and exit
 		--version Displays versions and exits
 "
@@ -31,13 +29,23 @@ version() {
 	echo -n "$SCRIPTNAME $SCRIPTVERSION (C) 2021. No warranty."
 }
 
+# Makes sure target is set
+check_target() {
+	if [[ -z "$TARGET" ]]
+	then
+		usage
+		exit 2
+	fi
+}
+
 # Gets furious binary path to avoid path hijacking
 get_furious() {
 	go_dir=$(go env | grep GOPATH | awk -F'"' '{print $2}');
 	ls $go_dir/bin/furious &>/dev/null;
 	if [[ -z "$?" ]]
 	then
-		exit 2
+		>&2 echo "Furious is not installed"
+		exit 3
 	else
 		FURIOUS=$go_dir/bin/furious
 	fi
@@ -48,12 +56,16 @@ get_ports() {
 	UNFILTERED_PORTS=$($FURIOUS -s connect -p 1-65535 $TARGET);
 	SPACED_PORTS=$(echo $UNFILTERED_PORTS | grep -E -o $PORT_REGEX | sed -e 's/\/tcp//g');
 	PORTS=$(echo $SPACED_PORTS | tr ' ' ',');
+	if  [ -z "$PORTS" ]
+	then
+		>&2 echo "No open ports"
+		exit 4
+	fi
 }
 
 get_nmapcomm() {
-
 	NMAPCOMM="nmap $TARGET -p$PORTS"
-	if [[ ! $VERBOSE && $PARANOIC ]]; then
+	if [[ $PARANOIC ]]; then
 		NMAPCOMM+=" -sC -sV -Pn -T1 -n"
 	else
 		NMAPCOMM+=" -sC -sV -Pn -T5 -n"
@@ -68,7 +80,6 @@ eval set -- "$TEMP"
 # default values for options
 while true; do
 	case "$1" in
-		-v | --verbose ) VERBOSE=true; shift ;;
 		-t | --target ) TARGET=$2; shift 2 ;;
 		-p | --paranoic ) PARANOIC=true; shift ;;
 		-h | --help ) usage; exit 1 ;;
@@ -105,7 +116,7 @@ trap "missing_dependency" 2 # Error with dependencies
 ##############################################
 
 # main body
-
+check_target
 get_furious
 get_ports
 get_nmapcomm
