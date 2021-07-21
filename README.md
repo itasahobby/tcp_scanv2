@@ -69,11 +69,18 @@ sudo chmod +x /usr/bin/scan
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+```
+scan [OPTIONS]
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+main options are described below.
 
-
+        Options:
+                -v,--verbose Verbose output only showing nmap command without executing
+                -t,--target Target to scan (mandatory)
+                -p,--paranoic Slow scan
+                -h,--help Display this help and exit
+                --version Displays versions and exits
+```
 
 <!-- ROADMAP -->
 ## Roadmap
